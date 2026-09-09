@@ -12,6 +12,20 @@
         <Label Text="Descrição do Produto:"/>
         <Entry x:Name="txt_descricao"/>
 
+        <Picker x:Name="pck_categoria" Title="Categoria do Produto:" 
+            TitleColor="Black"
+            TextColor="Black"
+            SelectedIndex="0"
+            HeightRequest="75"
+            HorizontalOptions="FillAndExpand">
+            <Picker.Items>
+                <x:String>Higiene</x:String>
+                <x:String>Alimentação</x:String>
+                <x:String>Limpeza</x:String>
+                <x:String>Entretenimento</x:String>
+            </Picker.Items>
+        </Picker>
+
         <Label Text="Quantidade:"/>
         <Entry x:Name="txt_quantidade" Keyboard="Numeric"/>
         

@@ -44,7 +44,6 @@ public partial class ListaProduto : ContentPage
 
     private async void txt_search_TextChanged(object sender, TextChangedEventArgs e)
     {
-
         try
         {
             string q = e.NewTextValue;
@@ -135,5 +134,47 @@ public partial class ListaProduto : ContentPage
         {
             lst_produtos.IsRefreshing = false;
         }
+    }
+
+    private async void txt_search_Categoria_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        try
+        {
+            string q = e.NewTextValue;
+
+            lst_produtos.IsRefreshing = true;
+
+            lista.Clear();
+
+            List<Produto> tmp = await App.Db.SearchCat(q);
+
+            tmp.ForEach(i => lista.Add(i));
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Ops", ex.Message, "OK");
+        }
+    }
+
+    private async void ToolbarItem_Clicked_2(object sender, EventArgs e)
+    {
+        try
+        {
+            List<Produto> Higiene = await App.Db.SearchCat("Higiene");
+            List<Produto> Alimentação = await App.Db.SearchCat("Alimentação");
+            List<Produto> Limpeza = await App.Db.SearchCat("Limpeza");
+            List<Produto> Entretenimento = await App.Db.SearchCat("Entretenimento");
+
+            double higSum = Higiene.Sum(i => i.Total);
+            double aliSum = Alimentação.Sum(i => i.Total);
+            double limSum = Limpeza.Sum(i => i.Total);
+            double entSum = Entretenimento.Sum(i => i.Total);
+
+            DisplayAlert("Total por Categoria", $"Higiene: {higSum:C}.\nAlimentação: {aliSum:C}.\nLimpeza: {limSum:C}.\nEntretenimento: {entSum:C}.", "OK");
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Ops", ex.Message, "OK");
+        }   
     }
 }

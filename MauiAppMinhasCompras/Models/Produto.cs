@@ -21,6 +21,7 @@ namespace MauiAppMinhasCompras.Models
                 _descricao = value;
             }
         }
+        public string Categoria { get; set; }
         public double Quantidade { 
             get => _quantidade;
             set
